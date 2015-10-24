@@ -15,12 +15,15 @@ var animate = (function() {
 		 * @return {object}  css   样式集合
 		 */
 		getStyle: function (obj) {
-			if (obj.currentStyle) {
-				return obj.currentStyle;
-			} else {
-				return getComputedStyle(obj);
+			return function () {
+				if (obj.currentStyle) {
+					return obj.currentStyle;
+				} else {
+					return getComputedStyle(obj);
+				}
 			}
-		},
+
+		}(),
 
 		init: function () {
 			var _this = this;
@@ -45,6 +48,10 @@ var animate = (function() {
 			};
 			this.$('btn2').onclick = function () {
 				var $this = this;
+				if (/loading/.test($this.getAttribute('class'))) return;
+
+				$this.setAttribute('class', $this.getAttribute('class') + ' loading'); 
+				
 				if ($this.getAttribute('rel') === '0') {
 					_this.move(_this.$('div2'), _this.getStyle(_this.$('div2')), 'right', function () {
 						$this.setAttribute('rel', '1');
