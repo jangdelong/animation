@@ -14,8 +14,8 @@ var animate = (function() {
 		 * @param  {object}  obj   DOM对象
 		 * @return {object}  css   样式集合
 		 */
-		getStyle: function (obj) {
-			return function () {
+		getStyle: function () {
+			return function (obj) {
 				if (obj.currentStyle) {
 					return obj.currentStyle;
 				} else {
@@ -51,7 +51,7 @@ var animate = (function() {
 				if (/loading/.test($this.getAttribute('class'))) return;
 
 				$this.setAttribute('class', $this.getAttribute('class') + ' loading'); 
-				
+
 				if ($this.getAttribute('rel') === '0') {
 					_this.move(_this.$('div2'), _this.getStyle(_this.$('div2')), 'right', function () {
 						$this.setAttribute('rel', '1');
